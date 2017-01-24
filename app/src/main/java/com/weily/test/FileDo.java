@@ -9,11 +9,12 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public class FileDo
 {
@@ -38,27 +39,19 @@ public class FileDo
     {
         try
         {
-            File file=new File(newPath);
+            File file = new File(newPath);
             file.delete();
             file.createNewFile();
-            FileWriter fileWriter = new FileWriter(newPath);
-            FileReader fileReader = new FileReader(oldPath);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            boolean eof = false;
-            while (!eof)
+            InputStream in = new FileInputStream(new File(oldPath));
+            OutputStream out = new FileOutputStream(file);
+            int len = 0;
+            byte[] buf = new byte[1024];
+            while ((len = in.read(buf)) != -1)
             {
-                String line = bufferedReader.readLine();
-                if (line == null)
-                {
-                    eof = true;
-                } else
-                {
-                    fileWriter.write(line + "\n");
-                }
+                out.write(buf, 0, len);
             }
-            bufferedReader.close();
-            fileReader.close();
-            fileWriter.close();
+            in.close();
+            out.close();
         } catch (IOException e)
         {
             e.printStackTrace();

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">test</string>
+    <string name="app_name">Replace</string>
     <string name="action_edit">Edit</string>
     <string name="action_done">Done</string>
     <string name="name_replace">替换</string>
