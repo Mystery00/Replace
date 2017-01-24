@@ -103,10 +103,13 @@ public class MainActivity extends AppCompatActivity
         switch (requestCode)
         {
             case INFILE_CODE:
-                String path = FileDo.getFloder(MainActivity.this, data.getData());
-                SharedPreferences.Editor editor = getSharedPreferences("configure", MODE_PRIVATE).edit();
-                editor.putString("location", path);
-                editor.apply();
+                if (data != null)
+                {
+                    String path = FileDo.getFloder(MainActivity.this, data.getData());
+                    SharedPreferences.Editor editor = getSharedPreferences("configure", MODE_PRIVATE).edit();
+                    editor.putString("location", path);
+                    editor.apply();
+                }
                 break;
             case iPictureChooser.REQUEST_IMG_CHOOSE:
                 if (data != null)
