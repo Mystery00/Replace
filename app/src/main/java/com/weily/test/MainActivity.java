@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity
     private static final int INFILE_CODE = 233;
     private static final int PERMISSION = 322;
     private iPictureChooser pictureChooser;
+    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity
         checkPermission();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         Button button = (Button) findViewById(R.id.button);
-        final View view=findViewById(R.id.coordinatorLayout);
+        view = findViewById(R.id.coordinatorLayout);
         pictureChooser = (iPictureChooser) findViewById(R.id.picture);
         pictureChooser.setDataList(R.drawable.ic_add, new iPictureChooserListener()
         {
@@ -62,12 +63,17 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                if(pictureChooser.getList().size()!=0)
+                if (pictureChooser.getList().size() != 0)
                 {
+                    ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+                    progressDialog.setMessage(getString(R.string.wait));
+                    progressDialog.setCancelable(false);
+                    progressDialog.show();
                     replace();
-                }else
+                    progressDialog.dismiss();
+                } else
                 {
-                    Snackbar.make(view,getString(R.string.hint_null),Snackbar.LENGTH_SHORT)
+                    Snackbar.make(view, getString(R.string.hint_null), Snackbar.LENGTH_SHORT)
                             .show();
                 }
             }
@@ -122,14 +128,14 @@ public class MainActivity extends AppCompatActivity
 
     private void replace()
     {
-        ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
-        progressDialog.setMessage(getString(R.string.wait));
-        progressDialog.setCancelable(false);
-        progressDialog.show();
         try
         {
             String path = getSharedPreferences("configure", MODE_PRIVATE).getString("location", "");
             File file = new File(path);
+            if (!file.exists())
+            {
+                Snackbar.make(view, getString(R.string.hint_path), Snackbar.LENGTH_SHORT).show();
+            }
             File[] files = file.listFiles();
             List<String> pictures = pictureChooser.getList();
             int number = files.length / pictures.size() + 1;
@@ -139,18 +145,15 @@ public class MainActivity extends AppCompatActivity
                 {
                     if (i + j >= files.length)
                     {
-                        progressDialog.hide();
                         return;
                     }
                     FileDo.copy(pictures.get(i / number), files[i + j].getAbsolutePath());
                     Log.i(TAG, "replace: old: " + i + " new: " + (i + j));
                 }
             }
-        } catch (Exception e)
+        } catch (Exception ignored)
         {
-            progressDialog.hide();
         }
-        progressDialog.hide();
     }
 
     private void checkPermission()
