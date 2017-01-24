@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity
                     progressDialog.show();
                     replace();
                     progressDialog.dismiss();
+                    Toast.makeText(MainActivity.this, getString(R.string.done), Toast.LENGTH_LONG).show();
                 } else
                 {
                     Snackbar.make(view, getString(R.string.hint_null), Snackbar.LENGTH_SHORT)
