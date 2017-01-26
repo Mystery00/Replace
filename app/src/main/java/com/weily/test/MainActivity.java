@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity
                     picturesList.add(path);
                 }
                 text_last.setText(temp);
+                pictureChooser.setList(picturesList);
             }
         });
         setSupportActionBar(toolbar);
