@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.StringDef;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -17,12 +18,14 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mystery0.ipicturechooser.iPictureChooser;
 import com.mystery0.ipicturechooser.iPictureChooserListener;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity
     private static final int INFILE_CODE = 233;
     private static final int PERMISSION = 322;
     private iPictureChooser pictureChooser;
+    private TextView history;
     private View view;
 
     @Override
@@ -41,6 +45,9 @@ public class MainActivity extends AppCompatActivity
         checkPermission();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         Button button = (Button) findViewById(R.id.button);
+        Button btn_last = (Button) findViewById(R.id.last_button);
+        final TextView text_last = (TextView) findViewById(R.id.last_text);
+        history = (TextView) findViewById(R.id.history);
         view = findViewById(R.id.coordinatorLayout);
         pictureChooser = (iPictureChooser) findViewById(R.id.picture);
         pictureChooser.setDataList(R.drawable.ic_add, new iPictureChooserListener()
@@ -79,7 +86,34 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
+        btn_last.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                String temp = getString(R.string.hint_history);
+                List<String> picturesList = new ArrayList<>();
+                SharedPreferences preferences = getSharedPreferences("configure", MODE_PRIVATE);
+                for (int i = 0; i < 5; i++)
+                {
+                    String path = preferences.getString("picture_" + i, "null");
+                    if (path.equals("null"))
+                        break;
+                    temp += "\n" + path;
+                    picturesList.add(path);
+                }
+                text_last.setText(temp);
+            }
+        });
         setSupportActionBar(toolbar);
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        String path = getString(R.string.hint_history) + getSharedPreferences("configure", MODE_PRIVATE).getString("location", "");
+        history.setText(path);
     }
 
     @Override
@@ -139,6 +173,12 @@ public class MainActivity extends AppCompatActivity
             }
             File[] files = file.listFiles();
             List<String> pictures = pictureChooser.getList();
+            SharedPreferences.Editor editor = getSharedPreferences("configure", MODE_PRIVATE).edit();
+            for (int i = 0; i < pictures.size(); i++)
+            {
+                editor.putString("picture_" + i, pictures.get(i));
+            }
+            editor.apply();
             int number = files.length / pictures.size() + 1;
             for (int i = 0; i < files.length; i += number)
             {

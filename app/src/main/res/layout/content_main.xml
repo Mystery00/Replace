@@ -14,10 +14,16 @@
     tools:context="com.weily.test.MainActivity"
     tools:showIn="@layout/activity_main">
 
+    <TextView
+        android:id="@+id/history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/history"
         android:text="@string/name_replace"/>
 
     <TextView
@@ -27,10 +33,25 @@
         android:layout_below="@id/button"
         android:text="@string/hint_use"/>
 
+    <Button
+        android:id="@+id/last_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hint_text"
+        android:text="@string/last"/>
+
+    <TextView
+        android:id="@+id/last_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/last_button"
+        android:text="@string/hint_history"/>
+
     <com.mystery0.ipicturechooser.iPictureChooser
         android:id="@+id/picture"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/hint_text"/>
+        android:layout_below="@id/last_text"
+        android:layout_marginTop="@dimen/margin"/>
 
 </RelativeLayout>

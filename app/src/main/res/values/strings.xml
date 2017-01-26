@@ -6,7 +6,9 @@
     <string name="hint_out">数量过多！</string>
     <string name="hint_path">路径不存在！</string>
     <string name="hint_null">请选择图片</string>
-    <string name="hint_use">单击加号键添加自定义图片，长按条目删除图片，通过右上角的编辑按钮选择广告文件夹内随便一个文件，然后单击替换按钮，等待完成后即可！/n路径不对可能出现未知错误，请谨慎选择！</string>
+    <string name="hint_use">单击加号键添加自定义图片，长按条目删除图片，通过右上角的编辑按钮选择广告文件夹内随便一个文件，然后单击替换按钮，等待完成后即可！\n路径不对可能出现未知错误，请谨慎选择！</string>
     <string name="wait">替换中</string>
     <string name="done">替换完成</string>
+    <string name="hint_history">当前选择的路径为：</string>
+    <string name="last">载入上次选择图片</string>
 </resources>
