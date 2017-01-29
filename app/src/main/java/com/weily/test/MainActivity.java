@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.StringDef;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -175,6 +174,10 @@ public class MainActivity extends AppCompatActivity
             File[] files = file.listFiles();
             List<String> pictures = pictureChooser.getList();
             SharedPreferences.Editor editor = getSharedPreferences("configure", MODE_PRIVATE).edit();
+            for (int i = 0; i < 5; i++)
+            {
+                editor.putString("picture_" + i, "null");
+            }
             for (int i = 0; i < pictures.size(); i++)
             {
                 editor.putString("picture_" + i, pictures.get(i));
