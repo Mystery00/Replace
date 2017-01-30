@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity
                     progressDialog.show();
                     replace();
                     progressDialog.dismiss();
-                    Toast.makeText(MainActivity.this, getString(R.string.done), Toast.LENGTH_LONG).show();
                 } else
                 {
                     Snackbar.make(view, getString(R.string.hint_null), Snackbar.LENGTH_SHORT)
@@ -187,12 +186,14 @@ public class MainActivity extends AppCompatActivity
                 {
                     if (i + j >= files.length)
                     {
+                        Toast.makeText(MainActivity.this, getString(R.string.done), Toast.LENGTH_LONG).show();
                         return;
                     }
                     FileDo.copy(pictures.get(i / number), files[i + j].getAbsolutePath());
                     Log.i(TAG, "replace: old: " + i + " new: " + (i + j));
                 }
             }
+            Toast.makeText(MainActivity.this, getString(R.string.done), Toast.LENGTH_LONG).show();
         } catch (Exception ignored)
         {
         }

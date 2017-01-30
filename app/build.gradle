@@ -26,6 +26,6 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:design:25.1.0'
-    compile 'com.github.Mystery00:iPictureChooser:1.1.1'
+    compile 'com.github.Mystery00:iPictureChooser:1.1.2'
     testCompile 'junit:junit:4.12'
 }
