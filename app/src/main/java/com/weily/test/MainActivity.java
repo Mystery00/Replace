@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity
         history = (TextView) findViewById(R.id.history);
         view = findViewById(R.id.coordinatorLayout);
         pictureChooser = (iPictureChooser) findViewById(R.id.picture);
-        pictureChooser.setDataList(R.drawable.ic_add, new iPictureChooserListener()
+        pictureChooser.setDataList(R.mipmap.new_choose, new iPictureChooserListener()
         {
             @Override
             public void MainClick()
