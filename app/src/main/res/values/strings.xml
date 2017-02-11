@@ -11,4 +11,5 @@
     <string name="done">替换完成</string>
     <string name="hint_history">当前选择的路径为：</string>
     <string name="last">载入上次选择图片</string>
+    <string name="hint_error">请将下面内容截图给开发者</string>
 </resources>

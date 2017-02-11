@@ -196,9 +196,10 @@ public class MainActivity extends AppCompatActivity
                     Log.i(TAG, "replace: old: " + i + " new: " + (i + j));
                 }
             }
-            Toast.makeText(MainActivity.this, getString(R.string.done), Toast.LENGTH_LONG).show();
-        } catch (Exception ignored)
+        } catch (Exception e)
         {
+            Toast.makeText(MainActivity.this, getString(R.string.hint_error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
